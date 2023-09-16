@@ -95,4 +95,56 @@ public class WalkActionTest {
         verify(currentTile, times(1)).walkOut(any());
         verify(destinationTile, times(1)).walkIn(any());
     }
+
+    @Test
+    public void should_Fetch_Right_Tile_When_Facing_North(){
+        adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 1), null);
+        when(map.getTileAt(any()))
+                .thenReturn(currentTile)
+                .thenReturn(destinationTile);
+        when(destinationTile.canWalkIn(adventurer)).thenReturn(true);
+
+        action.execute(adventurer, map);
+
+        verify(map).getTileAt(argThat((Coordinates coordinates) -> coordinates.getX() == 0 && coordinates.getY() == 0));
+    }
+
+    @Test
+    public void should_Fetch_Right_Tile_When_Facing_East(){
+        adventurer = new Adventurer("", Orientation.EAST, new Coordinates(0, 0), null);
+        when(map.getTileAt(any()))
+                .thenReturn(currentTile)
+                .thenReturn(destinationTile);
+        when(destinationTile.canWalkIn(adventurer)).thenReturn(true);
+
+        action.execute(adventurer, map);
+
+        verify(map).getTileAt(argThat((Coordinates coordinates) -> coordinates.getX() == 1 && coordinates.getY() == 0));
+    }
+
+    @Test
+    public void should_Fetch_Right_Tile_When_Facing_South(){
+        adventurer = new Adventurer("", Orientation.SOUTH, new Coordinates(0, 0), null);
+        when(map.getTileAt(any()))
+                .thenReturn(currentTile)
+                .thenReturn(destinationTile);
+        when(destinationTile.canWalkIn(adventurer)).thenReturn(true);
+
+        action.execute(adventurer, map);
+
+        verify(map).getTileAt(argThat((Coordinates coordinates) -> coordinates.getX() == 0 && coordinates.getY() == 1));
+    }
+
+    @Test
+    public void should_Fetch_Right_Tile_When_Facing_West(){
+        adventurer = new Adventurer("", Orientation.WEST, new Coordinates(1, 0), null);
+        when(map.getTileAt(any()))
+                .thenReturn(currentTile)
+                .thenReturn(destinationTile);
+        when(destinationTile.canWalkIn(adventurer)).thenReturn(true);
+
+        action.execute(adventurer, map);
+
+        verify(map).getTileAt(argThat((Coordinates coordinates) -> coordinates.getX() == 0 && coordinates.getY() == 0));
+    }
 }
