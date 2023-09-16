@@ -26,7 +26,7 @@ public class RegionMapTest {
 
     @Nested
     class GetTileAtTest {
-        RegionMap regionMap;
+        private RegionMap regionMap;
 
         @BeforeEach
         public void setUp(){
@@ -70,7 +70,7 @@ public class RegionMapTest {
 
     @Nested
     class SetTileTest {
-        RegionMap regionMap;
+        private RegionMap regionMap;
 
         @BeforeEach
         public void setUp(){
