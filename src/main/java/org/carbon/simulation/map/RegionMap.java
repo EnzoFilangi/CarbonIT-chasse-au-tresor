@@ -2,9 +2,6 @@ package org.carbon.simulation.map;
 
 import org.carbon.simulation.map.tile.Tile;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class RegionMap {
     private final int sizeX;
     private final int sizeY;
@@ -37,48 +34,15 @@ public class RegionMap {
         map[x][y] = tile;
     }
 
-    public String display(){
-        List<String> tileStrings = collectTileStrings();
-        int maxTileStringSize = findLongestStringLength(tileStrings);
-        return buildMapString(tileStrings, maxTileStringSize);
-    }
+    public String[][] display(){
+        String[][] tileStrings = new String[sizeX][sizeY];
 
-    private List<String> collectTileStrings() {
-        List<String> tileStrings = new ArrayList<>(sizeX * sizeY);
-
-        for (int y = 0; y < sizeY; y++) { // Iterate line by line
-            for (int x = 0; x < sizeX; x++) {
-                tileStrings.add(getTileAt(x, y).display());
+        for (int x = 0; x < sizeX; x++) {
+            for (int y = 0; y < sizeY; y++) {
+                tileStrings[x][y] = map[x][y].display();
             }
         }
 
         return tileStrings;
-    }
-
-    private int findLongestStringLength(List<String> tileStrings) {
-        int maxLength = 0;
-
-        for (String s: tileStrings){
-            maxLength = Math.max(maxLength, s.length());
-        }
-
-        return maxLength;
-    }
-
-    private String buildMapString(List<String> tileDisplay, int maxTileStringSize) {
-        StringBuilder mapString = new StringBuilder();
-        for (int i = 0; i < tileDisplay.size(); i++) {
-            mapString.append(padRight(tileDisplay.get(i), maxTileStringSize + 1));
-
-            if (i % sizeX == sizeX - 1) {
-                mapString.append("\n");
-            }
-        }
-        return mapString.toString();
-    }
-
-    // https://stackoverflow.com/a/391978
-    private String padRight(String s, int n) {
-        return String.format("%-" + n + "s", s);
     }
 }

@@ -9,20 +9,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RegionMapTest {
-    @Test
-    public void should_Properly_Display_The_Map(){
-        RegionMap regionMap = new RegionMap(2, 3);
-        regionMap.setTile(0, 0, TileFactory.plains());
-        regionMap.setTile(1, 0, TileFactory.plains());
-        regionMap.setTile(0, 1, TileFactory.treasure(1));
-        regionMap.setTile(1, 1, TileFactory.mountains());
-        regionMap.setTile(0, 2, TileFactory.plains());
-        regionMap.setTile(1, 2, TileFactory.plains());
-
-        String mapDisplayed = regionMap.display();
-
-        assertEquals(".    .    \nT(1) M    \n.    .    \n", mapDisplayed);
-    }
 
     @Nested
     class GetTileAtTest {
