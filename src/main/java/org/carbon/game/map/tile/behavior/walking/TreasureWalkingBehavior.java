@@ -3,31 +3,27 @@ package org.carbon.game.map.tile.behavior.walking;
 import org.carbon.game.Adventurer;
 import org.carbon.game.map.Coordinates;
 
-public class TreasureWalkingBehavior implements WalkingBehavior {
-    private boolean occupied = false;
+public class TreasureWalkingBehavior extends DefaultWalkingBehavior {
     private int treasureQuantity;
 
     public TreasureWalkingBehavior(int treasureQuantity) {
+        super();
         this.treasureQuantity = treasureQuantity;
     }
 
     @Override
-    public void walkIn(Adventurer adventurer, Coordinates coordinates) {
-        if (this.occupied) {
-            return;
-        }
-
-        this.occupied = true;
-        adventurer.setCoordinates(coordinates);
-
-        if (treasureQuantity > 0){
+    public boolean walkIn(Adventurer adventurer, Coordinates coordinates) {
+        boolean walkSuccess = super.walkIn(adventurer, coordinates);
+        if (walkSuccess && treasureQuantity > 0){
             adventurer.incrementTreasureQuantity();
             treasureQuantity--;
         }
+
+        return walkSuccess;
     }
 
     @Override
-    public void walkOut(Adventurer adventurer, Coordinates coordinates) {
-        this.occupied = false;
+    public boolean walkOut(Adventurer adventurer, Coordinates coordinates) {
+        return super.walkOut(adventurer, coordinates);
     }
 }

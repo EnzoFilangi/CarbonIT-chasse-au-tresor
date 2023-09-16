@@ -5,7 +5,7 @@ import org.carbon.game.map.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TreasureWalkingBehaviorTest {
     private TreasureWalkingBehavior treasureWalkingBehavior;
@@ -84,5 +84,31 @@ public class TreasureWalkingBehaviorTest {
         treasureWalkingBehavior.walkIn(adventurer, tileCoordinates);
 
         assertEquals(0, adventurer.getTreasureQuantity());
+    }
+
+    @Test
+    public void should_Return_True_On_WalkIn_Success(){
+        Adventurer adventurer = new Adventurer(new Coordinates(0,0));
+        Coordinates tileCoordinates = new Coordinates(1, 1);
+
+        assertTrue(treasureWalkingBehavior.walkIn(adventurer, tileCoordinates));
+    }
+
+    @Test
+    public void should_Return_False_On_WalkIn_Failure(){
+        Adventurer firstAdventurer = new Adventurer(new Coordinates(0,0));
+        Adventurer secondAdventurer = new Adventurer(new Coordinates(0,0));
+        Coordinates tileCoordinates = new Coordinates(1, 1);
+
+        treasureWalkingBehavior.walkIn(firstAdventurer, tileCoordinates);
+        assertFalse(treasureWalkingBehavior.walkIn(secondAdventurer, tileCoordinates));
+    }
+
+    @Test
+    public void should_Return_True_On_WalkOut(){
+        Adventurer adventurer = new Adventurer(new Coordinates(0,0));
+        Coordinates tileCoordinates = new Coordinates(1, 1);
+
+        assertTrue(treasureWalkingBehavior.walkOut(adventurer, tileCoordinates));
     }
 }

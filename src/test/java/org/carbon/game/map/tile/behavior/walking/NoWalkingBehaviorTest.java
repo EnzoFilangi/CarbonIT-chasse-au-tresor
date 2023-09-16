@@ -5,8 +5,7 @@ import org.carbon.game.map.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class NoWalkingBehaviorTest {
     private NoWalkingBehavior noWalkingBehavior;
@@ -33,5 +32,13 @@ public class NoWalkingBehaviorTest {
         Coordinates tileCoordinates = new Coordinates(1, 1);
 
         assertThrows(RuntimeException.class, () -> noWalkingBehavior.walkOut(adventurer, tileCoordinates));
+    }
+
+    @Test
+    public void should_Return_False_On_WalkIn(){
+        Adventurer adventurer = new Adventurer(new Coordinates(0,0));
+        Coordinates tileCoordinates = new Coordinates(1, 1);
+
+        assertFalse(noWalkingBehavior.walkIn(adventurer, tileCoordinates));
     }
 }

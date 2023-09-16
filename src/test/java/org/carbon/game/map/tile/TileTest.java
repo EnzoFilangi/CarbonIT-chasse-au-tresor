@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -29,24 +30,42 @@ public class TileTest {
     @BeforeEach
     public void setUp(){
         MockitoAnnotations.openMocks(this);
-        this.tile = new Tile(graphicalBehavior, walkingBehavior, coordinates);
+        tile = new Tile(graphicalBehavior, walkingBehavior, coordinates);
     }
 
     @Test
     public void should_Delegate_WalkIn_To_WalkingBehavior(){
-        this.tile.walkIn(adventurer);
+        tile.walkIn(adventurer);
         verify(walkingBehavior).walkIn(adventurer, coordinates);
     }
 
     @Test
+    public void should_Return_Result_Of_WalkingBehavior_WalkIn(){
+        when(walkingBehavior.walkIn(adventurer, coordinates)).thenReturn(true);
+
+        boolean result = tile.walkIn(adventurer);
+
+        assertTrue(result);
+    }
+
+    @Test
     public void should_Delegate_WalkOut_To_WalkingBehavior(){
-        this.tile.walkOut(adventurer);
+        tile.walkOut(adventurer);
         verify(walkingBehavior).walkOut(adventurer, coordinates);
     }
 
     @Test
+    public void should_Return_Result_Of_WalkingBehavior_WalkOut(){
+        when(walkingBehavior.walkOut(adventurer, coordinates)).thenReturn(true);
+
+        boolean result = tile.walkOut(adventurer);
+
+        assertTrue(result);
+    }
+
+    @Test
     public void should_Delegate_Display_To_GraphicalBehavior(){
-        this.tile.display();
+        tile.display();
         verify(graphicalBehavior).display();
     }
 
@@ -55,7 +74,7 @@ public class TileTest {
         String expectedResult = "Lorem ipsum";
         when(graphicalBehavior.display()).thenReturn(expectedResult);
 
-        String displayedValue = this.tile.display();
+        String displayedValue = tile.display();
 
         assertEquals(displayedValue, expectedResult);
     }

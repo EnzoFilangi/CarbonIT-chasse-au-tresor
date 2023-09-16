@@ -16,12 +16,12 @@ public class Tile {
         this.coordinates = coordinates;
     }
 
-    public void walkIn(Adventurer adventurer){
-        this.walkingBehavior.walkIn(adventurer, coordinates);
+    public boolean walkIn(Adventurer adventurer){
+        return this.walkingBehavior.walkIn(adventurer, coordinates);
     }
 
-    public void walkOut(Adventurer adventurer){
-        this.walkingBehavior.walkOut(adventurer, coordinates);
+    public boolean walkOut(Adventurer adventurer){
+        return this.walkingBehavior.walkOut(adventurer, coordinates);
     }
 
     public String display(){

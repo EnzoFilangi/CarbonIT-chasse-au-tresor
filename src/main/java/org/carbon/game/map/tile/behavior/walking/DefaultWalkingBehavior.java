@@ -7,17 +7,19 @@ public class DefaultWalkingBehavior implements WalkingBehavior {
     private boolean occupied = false;
 
     @Override
-    public void walkIn(Adventurer adventurer, Coordinates coordinates) {
+    public boolean walkIn(Adventurer adventurer, Coordinates coordinates) {
         if (this.occupied) {
-            return;
+            return false;
         }
 
         this.occupied = true;
         adventurer.setCoordinates(coordinates);
+        return true;
     }
 
     @Override
-    public void walkOut(Adventurer adventurer, Coordinates coordinates) {
+    public boolean walkOut(Adventurer adventurer, Coordinates coordinates) {
         this.occupied = false;
+        return true;
     }
 }
