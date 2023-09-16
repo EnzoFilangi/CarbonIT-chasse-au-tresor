@@ -30,12 +30,12 @@ public class TileTest {
     @BeforeEach
     public void setUp(){
         MockitoAnnotations.openMocks(this);
-        tile = new Tile(graphicalBehavior, walkingBehavior, coordinates);
+        tile = new Tile(graphicalBehavior, walkingBehavior);
     }
 
     @Test
     public void should_Delegate_WalkIn_To_WalkingBehavior(){
-        tile.walkIn(adventurer);
+        tile.walkIn(adventurer, coordinates);
         verify(walkingBehavior).walkIn(adventurer, coordinates);
     }
 
@@ -43,14 +43,14 @@ public class TileTest {
     public void should_Return_Result_Of_WalkingBehavior_WalkIn(){
         when(walkingBehavior.walkIn(adventurer, coordinates)).thenReturn(true);
 
-        boolean result = tile.walkIn(adventurer);
+        boolean result = tile.walkIn(adventurer, coordinates);
 
         assertTrue(result);
     }
 
     @Test
     public void should_Delegate_WalkOut_To_WalkingBehavior(){
-        tile.walkOut(adventurer);
+        tile.walkOut(adventurer, coordinates);
         verify(walkingBehavior).walkOut(adventurer, coordinates);
     }
 
@@ -58,7 +58,7 @@ public class TileTest {
     public void should_Return_Result_Of_WalkingBehavior_WalkOut(){
         when(walkingBehavior.walkOut(adventurer, coordinates)).thenReturn(true);
 
-        boolean result = tile.walkOut(adventurer);
+        boolean result = tile.walkOut(adventurer, coordinates);
 
         assertTrue(result);
     }

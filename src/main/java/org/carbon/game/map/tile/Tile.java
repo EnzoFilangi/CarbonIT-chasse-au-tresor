@@ -8,19 +8,17 @@ import org.carbon.game.map.tile.behavior.walking.WalkingBehavior;
 public class Tile {
     private final GraphicalBehavior graphicalBehavior;
     private final WalkingBehavior walkingBehavior;
-    private final Coordinates coordinates;
 
-    public Tile(GraphicalBehavior graphicalBehavior, WalkingBehavior walkingBehavior, Coordinates coordinates) {
+    public Tile(GraphicalBehavior graphicalBehavior, WalkingBehavior walkingBehavior) {
         this.graphicalBehavior = graphicalBehavior;
         this.walkingBehavior = walkingBehavior;
-        this.coordinates = coordinates;
     }
 
-    public boolean walkIn(Adventurer adventurer){
+    public boolean walkIn(Adventurer adventurer, Coordinates coordinates){
         return this.walkingBehavior.walkIn(adventurer, coordinates);
     }
 
-    public boolean walkOut(Adventurer adventurer){
+    public boolean walkOut(Adventurer adventurer, Coordinates coordinates){
         return this.walkingBehavior.walkOut(adventurer, coordinates);
     }
 

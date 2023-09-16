@@ -1,16 +1,12 @@
 package org.carbon.game.map.tile;
 
-import org.carbon.game.map.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TileFactoryTest {
-    @Mock
-    Coordinates coordinates;
 
     @BeforeEach
     public void setUp(){
@@ -19,16 +15,16 @@ public class TileFactoryTest {
 
     @Test
     public void plains_Should_Create(){
-        assertNotNull(TileFactory.plains(coordinates));
+        assertNotNull(TileFactory.plains());
     }
 
     @Test
     public void mountains_Should_Create(){
-        assertNotNull(TileFactory.mountains(coordinates));
+        assertNotNull(TileFactory.mountains());
     }
 
     @Test
     public void treasure_Should_Create(){
-        assertNotNull(TileFactory.treasure(coordinates, 1));
+        assertNotNull(TileFactory.treasure(1));
     }
 }
