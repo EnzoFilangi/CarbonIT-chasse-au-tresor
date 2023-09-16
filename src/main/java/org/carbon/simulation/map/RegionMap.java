@@ -5,12 +5,12 @@ import org.carbon.simulation.map.tile.Tile;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Map {
+public class RegionMap {
     private final int sizeX;
     private final int sizeY;
     private final Tile[][] map;
 
-    public Map(int sizeX, int sizeY) {
+    public RegionMap(int sizeX, int sizeY) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.map = new Tile[sizeX][sizeY];
