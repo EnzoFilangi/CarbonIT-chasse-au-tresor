@@ -19,15 +19,15 @@ public class TreasureWalkingBehaviorTest {
 
     @Test
     public void should_Allow_Entry_If_Not_Occupied() {
-        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
 
         assertTrue(treasureWalkingBehavior.canWalkIn(adventurer));
     }
 
     @Test
     public void should_Not_Allow_Entry_If_Occupied(){
-        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
-        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
+        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
 
         treasureWalkingBehavior.walkIn(firstAdventurer);
 
@@ -36,8 +36,8 @@ public class TreasureWalkingBehaviorTest {
 
     @Test
     public void should_Allow_Entry_Again_After_Leaving() {
-        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
-        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
+        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
 
         treasureWalkingBehavior.walkIn(firstAdventurer);
         treasureWalkingBehavior.walkOut(firstAdventurer);
@@ -47,8 +47,8 @@ public class TreasureWalkingBehaviorTest {
 
     @Test
     public void should_Throw_If_Forcing_Entry(){
-        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
-        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
+        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
 
         treasureWalkingBehavior.walkIn(firstAdventurer);
 
@@ -57,21 +57,21 @@ public class TreasureWalkingBehaviorTest {
 
     @Test
     public void should_Return_True_On_WalkIn_Success(){
-        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
 
         assertTrue(treasureWalkingBehavior.walkIn(adventurer));
     }
 
     @Test
     public void should_Return_True_On_WalkOut(){
-        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
 
         assertTrue(treasureWalkingBehavior.walkOut(adventurer));
     }
 
     @Test
     public void should_Increment_Adventurer_Treasures(){
-        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
 
         treasureWalkingBehavior.walkIn(adventurer);
 
@@ -80,8 +80,8 @@ public class TreasureWalkingBehaviorTest {
 
     @Test
     public void should_Not_Increment_Adventurer_Treasures_When_Forcing_Entry(){
-        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
-        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
+        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
 
         treasureWalkingBehavior.walkIn(firstAdventurer);
         try {
@@ -94,7 +94,7 @@ public class TreasureWalkingBehaviorTest {
     @Test
     public void should_Not_Increment_Adventurer_Treasures_When_No_Treasures_Left(){
         treasureWalkingBehavior = new TreasureWalkingBehavior(0);
-        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
 
         treasureWalkingBehavior.walkIn(adventurer);
 

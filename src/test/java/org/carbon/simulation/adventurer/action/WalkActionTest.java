@@ -32,7 +32,7 @@ public class WalkActionTest {
     public void setUp(){
         MockitoAnnotations.openMocks(this);
         action = new WalkAction();
-        adventurer = new Adventurer("", Orientation.SOUTH, new Coordinates(0, 0));
+        adventurer = new Adventurer("", Orientation.SOUTH, new Coordinates(0, 0), null);
     }
 
     @Test

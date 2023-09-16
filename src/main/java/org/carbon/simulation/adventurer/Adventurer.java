@@ -1,17 +1,22 @@
 package org.carbon.simulation.adventurer;
 
+import org.carbon.simulation.adventurer.action.Action;
 import org.carbon.simulation.map.Coordinates;
+
+import java.util.List;
 
 public class Adventurer {
     private final String name;
     private Orientation orientation;
     private Coordinates coordinates;
     private int treasureQuantity = 0;
+    private final List<Action> actionBacklog;
 
-    public Adventurer(String name, Orientation orientation, Coordinates coordinates) {
+    public Adventurer(String name, Orientation orientation, Coordinates coordinates, List<Action> actionBacklog) {
         this.name = name;
         this.orientation = orientation;
         this.coordinates = coordinates;
+        this.actionBacklog = actionBacklog;
     }
 
     public String getName() {
@@ -44,5 +49,13 @@ public class Adventurer {
 
     public void turnRight(){
         orientation = Orientation.orientationAfterRightTurn(orientation);
+    }
+
+    public Action getAndRemoveNextAction(){
+        if (actionBacklog.size() == 0){
+            return null;
+        }
+
+        return actionBacklog.remove(0);
     }
 }

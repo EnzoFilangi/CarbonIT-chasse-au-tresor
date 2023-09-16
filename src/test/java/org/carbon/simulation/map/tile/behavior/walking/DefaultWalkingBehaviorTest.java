@@ -19,15 +19,15 @@ public class DefaultWalkingBehaviorTest {
 
     @Test
     public void should_Allow_Entry_If_Not_Occupied() {
-        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
 
         assertTrue(defaultWalkingBehavior.canWalkIn(adventurer));
     }
 
     @Test
     public void should_Not_Allow_Entry_If_Occupied(){
-        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
-        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
+        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
 
         defaultWalkingBehavior.walkIn(firstAdventurer);
 
@@ -36,8 +36,8 @@ public class DefaultWalkingBehaviorTest {
 
     @Test
     public void should_Allow_Entry_Again_After_Leaving() {
-        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
-        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
+        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
 
         defaultWalkingBehavior.walkIn(firstAdventurer);
         defaultWalkingBehavior.walkOut(firstAdventurer);
@@ -47,8 +47,8 @@ public class DefaultWalkingBehaviorTest {
 
     @Test
     public void should_Throw_If_Forcing_Entry(){
-        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
-        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
+        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
 
         defaultWalkingBehavior.walkIn(firstAdventurer);
 
@@ -57,14 +57,14 @@ public class DefaultWalkingBehaviorTest {
 
     @Test
     public void should_Return_True_On_WalkIn_Success(){
-        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
 
         assertTrue(defaultWalkingBehavior.walkIn(adventurer));
     }
 
     @Test
     public void should_Return_True_On_WalkOut(){
-        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
 
         assertTrue(defaultWalkingBehavior.walkOut(adventurer));
     }

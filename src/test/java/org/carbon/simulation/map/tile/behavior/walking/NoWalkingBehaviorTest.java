@@ -18,21 +18,21 @@ public class NoWalkingBehaviorTest {
 
     @Test
     public void should_Never_Allow_Entry() {
-        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
 
         assertFalse(noWalkingBehavior.canWalkIn(adventurer));
     }
 
     @Test
     public void should_Throw_If_Forcing_Entry(){
-        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
 
         assertThrows(RuntimeException.class, () -> noWalkingBehavior.walkIn(adventurer));
     }
 
     @Test
     public void should_Throw_If_Walking_Out(){
-        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
 
         assertThrows(RuntimeException.class, () -> noWalkingBehavior.walkOut(adventurer));
     }
