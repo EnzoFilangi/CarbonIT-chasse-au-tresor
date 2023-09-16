@@ -26,4 +26,8 @@ public class TreasureWalkingBehavior extends DefaultWalkingBehavior {
     public boolean walkOut(Adventurer adventurer, Coordinates coordinates) {
         return super.walkOut(adventurer, coordinates);
     }
+
+    public int getTreasureQuantity() {
+        return treasureQuantity;
+    }
 }

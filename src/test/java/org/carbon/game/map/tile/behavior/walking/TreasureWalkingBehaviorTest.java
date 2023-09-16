@@ -111,4 +111,12 @@ public class TreasureWalkingBehaviorTest {
 
         assertTrue(treasureWalkingBehavior.walkOut(adventurer, tileCoordinates));
     }
+
+    @Test
+    public void should_Return_Quantity_Of_Treasures(){
+        int expectedTreasureQuantity = 1;
+        treasureWalkingBehavior = new TreasureWalkingBehavior(expectedTreasureQuantity);
+
+        assertEquals(expectedTreasureQuantity, treasureWalkingBehavior.getTreasureQuantity());
+    }
 }
