@@ -1,7 +1,6 @@
 package org.carbon.simulation.map.tile;
 
-import org.carbon.simulation.Adventurer;
-import org.carbon.simulation.map.Coordinates;
+import org.carbon.simulation.adventurer.Adventurer;
 import org.carbon.simulation.map.tile.behavior.graphical.GraphicalBehavior;
 import org.carbon.simulation.map.tile.behavior.walking.WalkingBehavior;
 
@@ -14,12 +13,16 @@ public class Tile {
         this.walkingBehavior = walkingBehavior;
     }
 
-    public boolean walkIn(Adventurer adventurer, Coordinates coordinates){
-        return this.walkingBehavior.walkIn(adventurer, coordinates);
+    public boolean canWalkIn(Adventurer adventurer){
+        return this.walkingBehavior.canWalkIn(adventurer);
     }
 
-    public boolean walkOut(Adventurer adventurer, Coordinates coordinates){
-        return this.walkingBehavior.walkOut(adventurer, coordinates);
+    public boolean walkIn(Adventurer adventurer){
+        return this.walkingBehavior.walkIn(adventurer);
+    }
+
+    public boolean walkOut(Adventurer adventurer){
+        return this.walkingBehavior.walkOut(adventurer);
     }
 
     public String display(){

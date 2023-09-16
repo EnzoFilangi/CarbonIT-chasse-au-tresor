@@ -1,10 +1,10 @@
 package org.carbon.simulation.map.tile.behavior.walking;
 
-import org.carbon.simulation.Adventurer;
-import org.carbon.simulation.map.Coordinates;
+import org.carbon.simulation.adventurer.Adventurer;
 
 public interface WalkingBehavior {
-    boolean walkIn(Adventurer adventurer, Coordinates coordinates);
+    boolean canWalkIn(Adventurer adventurer);
+    boolean walkIn(Adventurer adventurer);
 
-    boolean walkOut(Adventurer adventurer, Coordinates coordinates);
+    boolean walkOut(Adventurer adventurer);
 }

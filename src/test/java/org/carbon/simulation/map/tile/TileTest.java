@@ -1,7 +1,6 @@
 package org.carbon.simulation.map.tile;
 
-import org.carbon.simulation.Adventurer;
-import org.carbon.simulation.map.Coordinates;
+import org.carbon.simulation.adventurer.Adventurer;
 import org.carbon.simulation.map.tile.behavior.graphical.GraphicalBehavior;
 import org.carbon.simulation.map.tile.behavior.walking.WalkingBehavior;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,9 +23,6 @@ public class TileTest {
     @Mock
     private Adventurer adventurer;
 
-    @Mock
-    private Coordinates coordinates;
-
     @BeforeEach
     public void setUp(){
         MockitoAnnotations.openMocks(this);
@@ -34,31 +30,46 @@ public class TileTest {
     }
 
     @Test
+    public void should_Delegate_CanWalkIn_To_WalkingBehavior(){
+        tile.canWalkIn(adventurer);
+        verify(walkingBehavior).canWalkIn(adventurer);
+    }
+
+    @Test
+    public void should_Return_Result_Of_WalkingBehavior_CanWalkIn(){
+        when(walkingBehavior.canWalkIn(adventurer)).thenReturn(true);
+
+        boolean result = tile.canWalkIn(adventurer);
+
+        assertTrue(result);
+    }
+
+    @Test
     public void should_Delegate_WalkIn_To_WalkingBehavior(){
-        tile.walkIn(adventurer, coordinates);
-        verify(walkingBehavior).walkIn(adventurer, coordinates);
+        tile.walkIn(adventurer);
+        verify(walkingBehavior).walkIn(adventurer);
     }
 
     @Test
     public void should_Return_Result_Of_WalkingBehavior_WalkIn(){
-        when(walkingBehavior.walkIn(adventurer, coordinates)).thenReturn(true);
+        when(walkingBehavior.walkIn(adventurer)).thenReturn(true);
 
-        boolean result = tile.walkIn(adventurer, coordinates);
+        boolean result = tile.walkIn(adventurer);
 
         assertTrue(result);
     }
 
     @Test
     public void should_Delegate_WalkOut_To_WalkingBehavior(){
-        tile.walkOut(adventurer, coordinates);
-        verify(walkingBehavior).walkOut(adventurer, coordinates);
+        tile.walkOut(adventurer);
+        verify(walkingBehavior).walkOut(adventurer);
     }
 
     @Test
     public void should_Return_Result_Of_WalkingBehavior_WalkOut(){
-        when(walkingBehavior.walkOut(adventurer, coordinates)).thenReturn(true);
+        when(walkingBehavior.walkOut(adventurer)).thenReturn(true);
 
-        boolean result = tile.walkOut(adventurer, coordinates);
+        boolean result = tile.walkOut(adventurer);
 
         assertTrue(result);
     }

@@ -1,6 +1,7 @@
 package org.carbon.simulation.map.tile.behavior.walking;
 
-import org.carbon.simulation.Adventurer;
+import org.carbon.simulation.adventurer.Adventurer;
+import org.carbon.simulation.adventurer.Orientation;
 import org.carbon.simulation.map.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,29 +17,23 @@ public class NoWalkingBehaviorTest {
     }
 
     @Test
-    public void should_Not_Move_Adventurer_On_WalkIn(){
-        Adventurer adventurer = new Adventurer(new Coordinates(0, 0));
-        Coordinates tileCoordinates = new Coordinates(1, 1);
+    public void should_Never_Allow_Entry() {
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
 
-        noWalkingBehavior.walkIn(adventurer, tileCoordinates);
-
-        assertEquals(0, adventurer.getCoordinates().getX());
-        assertEquals(0, adventurer.getCoordinates().getY());
+        assertFalse(noWalkingBehavior.canWalkIn(adventurer));
     }
 
     @Test
-    public void should_Throw_On_WalkOut(){
-        Adventurer adventurer = new Adventurer(new Coordinates(0, 0));
-        Coordinates tileCoordinates = new Coordinates(1, 1);
+    public void should_Throw_If_Forcing_Entry(){
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
 
-        assertThrows(RuntimeException.class, () -> noWalkingBehavior.walkOut(adventurer, tileCoordinates));
+        assertThrows(RuntimeException.class, () -> noWalkingBehavior.walkIn(adventurer));
     }
 
     @Test
-    public void should_Return_False_On_WalkIn(){
-        Adventurer adventurer = new Adventurer(new Coordinates(0,0));
-        Coordinates tileCoordinates = new Coordinates(1, 1);
+    public void should_Throw_If_Walking_Out(){
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
 
-        assertFalse(noWalkingBehavior.walkIn(adventurer, tileCoordinates));
+        assertThrows(RuntimeException.class, () -> noWalkingBehavior.walkOut(adventurer));
     }
 }

@@ -1,6 +1,7 @@
 package org.carbon.simulation.map.tile.behavior.walking;
 
-import org.carbon.simulation.Adventurer;
+import org.carbon.simulation.adventurer.Adventurer;
+import org.carbon.simulation.adventurer.Orientation;
 import org.carbon.simulation.map.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,73 +10,62 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DefaultWalkingBehaviorTest {
     private DefaultWalkingBehavior defaultWalkingBehavior;
-    
+
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         defaultWalkingBehavior = new DefaultWalkingBehavior();
     }
-    
+
+
     @Test
-    public void should_Move_Adventurer_When_Not_Occupied(){
-        Adventurer adventurer = new Adventurer(new Coordinates(0,0));
-        Coordinates expectedCoordinates = new Coordinates(1, 1);
+    public void should_Allow_Entry_If_Not_Occupied() {
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
 
-        defaultWalkingBehavior.walkIn(adventurer, expectedCoordinates);
-
-        assertEquals(expectedCoordinates.getX(), adventurer.getCoordinates().getX());
-        assertEquals(expectedCoordinates.getY(), adventurer.getCoordinates().getY());
+        assertTrue(defaultWalkingBehavior.canWalkIn(adventurer));
     }
-    
+
     @Test
-    public void should_Not_Move_Adventurer_When_Occupied(){
-        Adventurer firstAdventurer = new Adventurer(new Coordinates(0,0));
-        Adventurer secondAdventurer = new Adventurer(new Coordinates(1,1));
-        Coordinates expectedCoordinates = new Coordinates(2, 2);
+    public void should_Not_Allow_Entry_If_Occupied(){
+        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
 
-        defaultWalkingBehavior.walkIn(firstAdventurer, expectedCoordinates);
-        defaultWalkingBehavior.walkIn(secondAdventurer, expectedCoordinates);
+        defaultWalkingBehavior.walkIn(firstAdventurer);
 
-        assertEquals(1, secondAdventurer.getCoordinates().getX());
-        assertEquals(1, secondAdventurer.getCoordinates().getY());
+        assertFalse(defaultWalkingBehavior.canWalkIn(secondAdventurer));
     }
-    
+
     @Test
-    public void should_Move_Adventurer_After_Occupying_Adventurer_Left(){
-        Adventurer firstAdventurer = new Adventurer(new Coordinates(0,0));
-        Adventurer secondAdventurer = new Adventurer(new Coordinates(1,1));
-        Coordinates expectedCoordinates = new Coordinates(2, 2);
+    public void should_Allow_Entry_Again_After_Leaving() {
+        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
 
-        defaultWalkingBehavior.walkIn(firstAdventurer, expectedCoordinates);
-        defaultWalkingBehavior.walkOut(firstAdventurer, expectedCoordinates);
-        defaultWalkingBehavior.walkIn(secondAdventurer, expectedCoordinates);
+        defaultWalkingBehavior.walkIn(firstAdventurer);
+        defaultWalkingBehavior.walkOut(firstAdventurer);
 
-        assertEquals(expectedCoordinates.getX(), secondAdventurer.getCoordinates().getX());
-        assertEquals(expectedCoordinates.getY(), secondAdventurer.getCoordinates().getY());
+        assertTrue(defaultWalkingBehavior.canWalkIn(secondAdventurer));
+    }
+
+    @Test
+    public void should_Throw_If_Forcing_Entry(){
+        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+
+        defaultWalkingBehavior.walkIn(firstAdventurer);
+
+        assertThrows(RuntimeException.class, () -> defaultWalkingBehavior.walkIn(secondAdventurer));
     }
 
     @Test
     public void should_Return_True_On_WalkIn_Success(){
-        Adventurer adventurer = new Adventurer(new Coordinates(0,0));
-        Coordinates tileCoordinates = new Coordinates(1, 1);
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
 
-        assertTrue(defaultWalkingBehavior.walkIn(adventurer, tileCoordinates));
-    }
-
-    @Test
-    public void should_Return_False_On_WalkIn_Failure(){
-        Adventurer firstAdventurer = new Adventurer(new Coordinates(0,0));
-        Adventurer secondAdventurer = new Adventurer(new Coordinates(0,0));
-        Coordinates tileCoordinates = new Coordinates(1, 1);
-
-        defaultWalkingBehavior.walkIn(firstAdventurer, tileCoordinates);
-        assertFalse(defaultWalkingBehavior.walkIn(secondAdventurer, tileCoordinates));
+        assertTrue(defaultWalkingBehavior.walkIn(adventurer));
     }
 
     @Test
     public void should_Return_True_On_WalkOut(){
-        Adventurer adventurer = new Adventurer(new Coordinates(0,0));
-        Coordinates tileCoordinates = new Coordinates(1, 1);
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
 
-        assertTrue(defaultWalkingBehavior.walkOut(adventurer, tileCoordinates));
+        assertTrue(defaultWalkingBehavior.walkOut(adventurer));
     }
 }

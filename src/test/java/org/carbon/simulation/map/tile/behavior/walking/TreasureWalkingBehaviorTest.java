@@ -1,6 +1,7 @@
 package org.carbon.simulation.map.tile.behavior.walking;
 
-import org.carbon.simulation.Adventurer;
+import org.carbon.simulation.adventurer.Adventurer;
+import org.carbon.simulation.adventurer.Orientation;
 import org.carbon.simulation.map.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,62 +16,77 @@ public class TreasureWalkingBehaviorTest {
         treasureWalkingBehavior = new TreasureWalkingBehavior(2);
     }
 
+
     @Test
-    public void should_Move_Adventurer_When_Not_Occupied(){
-        Adventurer adventurer = new Adventurer(new Coordinates(0,0));
-        Coordinates expectedCoordinates = new Coordinates(1, 1);
+    public void should_Allow_Entry_If_Not_Occupied() {
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
 
-        treasureWalkingBehavior.walkIn(adventurer, expectedCoordinates);
-
-        assertEquals(expectedCoordinates.getX(), adventurer.getCoordinates().getX());
-        assertEquals(expectedCoordinates.getY(), adventurer.getCoordinates().getY());
+        assertTrue(treasureWalkingBehavior.canWalkIn(adventurer));
     }
 
     @Test
-    public void should_Not_Move_Adventurer_When_Occupied(){
-        Adventurer firstAdventurer = new Adventurer(new Coordinates(0,0));
-        Adventurer secondAdventurer = new Adventurer(new Coordinates(1,1));
-        Coordinates expectedCoordinates = new Coordinates(2, 2);
+    public void should_Not_Allow_Entry_If_Occupied(){
+        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
 
-        treasureWalkingBehavior.walkIn(firstAdventurer, expectedCoordinates);
-        treasureWalkingBehavior.walkIn(secondAdventurer, expectedCoordinates);
+        treasureWalkingBehavior.walkIn(firstAdventurer);
 
-        assertEquals(1, secondAdventurer.getCoordinates().getX());
-        assertEquals(1, secondAdventurer.getCoordinates().getY());
+        assertFalse(treasureWalkingBehavior.canWalkIn(secondAdventurer));
     }
 
     @Test
-    public void should_Move_Adventurer_After_Occupying_Adventurer_Left(){
-        Adventurer firstAdventurer = new Adventurer(new Coordinates(0,0));
-        Adventurer secondAdventurer = new Adventurer(new Coordinates(1,1));
-        Coordinates expectedCoordinates = new Coordinates(2, 2);
+    public void should_Allow_Entry_Again_After_Leaving() {
+        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
 
-        treasureWalkingBehavior.walkIn(firstAdventurer, expectedCoordinates);
-        treasureWalkingBehavior.walkOut(firstAdventurer, expectedCoordinates);
-        treasureWalkingBehavior.walkIn(secondAdventurer, expectedCoordinates);
+        treasureWalkingBehavior.walkIn(firstAdventurer);
+        treasureWalkingBehavior.walkOut(firstAdventurer);
 
-        assertEquals(expectedCoordinates.getX(), secondAdventurer.getCoordinates().getX());
-        assertEquals(expectedCoordinates.getY(), secondAdventurer.getCoordinates().getY());
+        assertTrue(treasureWalkingBehavior.canWalkIn(secondAdventurer));
+    }
+
+    @Test
+    public void should_Throw_If_Forcing_Entry(){
+        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+
+        treasureWalkingBehavior.walkIn(firstAdventurer);
+
+        assertThrows(RuntimeException.class, () -> treasureWalkingBehavior.walkIn(secondAdventurer));
+    }
+
+    @Test
+    public void should_Return_True_On_WalkIn_Success(){
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+
+        assertTrue(treasureWalkingBehavior.walkIn(adventurer));
+    }
+
+    @Test
+    public void should_Return_True_On_WalkOut(){
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+
+        assertTrue(treasureWalkingBehavior.walkOut(adventurer));
     }
 
     @Test
     public void should_Increment_Adventurer_Treasures(){
-        Adventurer adventurer = new Adventurer(new Coordinates(0,0));
-        Coordinates tileCoordinates = new Coordinates(1, 1);
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
 
-        treasureWalkingBehavior.walkIn(adventurer, tileCoordinates);
+        treasureWalkingBehavior.walkIn(adventurer);
 
         assertEquals(1, adventurer.getTreasureQuantity());
     }
 
     @Test
-    public void should_Not_Increment_Adventurer_Treasures_When_Move_Fails(){
-        Adventurer firstAdventurer = new Adventurer(new Coordinates(0,0));
-        Adventurer secondAdventurer = new Adventurer(new Coordinates(1,1));
-        Coordinates expectedCoordinates = new Coordinates(2, 2);
+    public void should_Not_Increment_Adventurer_Treasures_When_Forcing_Entry(){
+        Adventurer firstAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
+        Adventurer secondAdventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
 
-        treasureWalkingBehavior.walkIn(firstAdventurer, expectedCoordinates);
-        treasureWalkingBehavior.walkIn(secondAdventurer, expectedCoordinates);
+        treasureWalkingBehavior.walkIn(firstAdventurer);
+        try {
+            treasureWalkingBehavior.walkIn(secondAdventurer);
+        } catch (RuntimeException ignored){}
 
         assertEquals(0, secondAdventurer.getTreasureQuantity());
     }
@@ -78,38 +94,11 @@ public class TreasureWalkingBehaviorTest {
     @Test
     public void should_Not_Increment_Adventurer_Treasures_When_No_Treasures_Left(){
         treasureWalkingBehavior = new TreasureWalkingBehavior(0);
-        Adventurer adventurer = new Adventurer(new Coordinates(0,0));
-        Coordinates tileCoordinates = new Coordinates(1, 1);
+        Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0));
 
-        treasureWalkingBehavior.walkIn(adventurer, tileCoordinates);
+        treasureWalkingBehavior.walkIn(adventurer);
 
         assertEquals(0, adventurer.getTreasureQuantity());
-    }
-
-    @Test
-    public void should_Return_True_On_WalkIn_Success(){
-        Adventurer adventurer = new Adventurer(new Coordinates(0,0));
-        Coordinates tileCoordinates = new Coordinates(1, 1);
-
-        assertTrue(treasureWalkingBehavior.walkIn(adventurer, tileCoordinates));
-    }
-
-    @Test
-    public void should_Return_False_On_WalkIn_Failure(){
-        Adventurer firstAdventurer = new Adventurer(new Coordinates(0,0));
-        Adventurer secondAdventurer = new Adventurer(new Coordinates(0,0));
-        Coordinates tileCoordinates = new Coordinates(1, 1);
-
-        treasureWalkingBehavior.walkIn(firstAdventurer, tileCoordinates);
-        assertFalse(treasureWalkingBehavior.walkIn(secondAdventurer, tileCoordinates));
-    }
-
-    @Test
-    public void should_Return_True_On_WalkOut(){
-        Adventurer adventurer = new Adventurer(new Coordinates(0,0));
-        Coordinates tileCoordinates = new Coordinates(1, 1);
-
-        assertTrue(treasureWalkingBehavior.walkOut(adventurer, tileCoordinates));
     }
 
     @Test

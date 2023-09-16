@@ -1,7 +1,6 @@
 package org.carbon.simulation.map.tile.behavior.walking;
 
-import org.carbon.simulation.Adventurer;
-import org.carbon.simulation.map.Coordinates;
+import org.carbon.simulation.adventurer.Adventurer;
 
 public class TreasureWalkingBehavior extends DefaultWalkingBehavior {
     private int treasureQuantity;
@@ -12,19 +11,12 @@ public class TreasureWalkingBehavior extends DefaultWalkingBehavior {
     }
 
     @Override
-    public boolean walkIn(Adventurer adventurer, Coordinates coordinates) {
-        boolean walkSuccess = super.walkIn(adventurer, coordinates);
-        if (walkSuccess && treasureQuantity > 0){
+    public boolean walkIn(Adventurer adventurer) {
+        if (super.walkIn(adventurer) && treasureQuantity > 0){
             adventurer.incrementTreasureQuantity();
             treasureQuantity--;
         }
-
-        return walkSuccess;
-    }
-
-    @Override
-    public boolean walkOut(Adventurer adventurer, Coordinates coordinates) {
-        return super.walkOut(adventurer, coordinates);
+        return true;
     }
 
     public int getTreasureQuantity() {
