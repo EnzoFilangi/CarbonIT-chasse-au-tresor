@@ -11,17 +11,10 @@ import org.carbon.simulation.SimulationFactory;
 import java.util.List;
 
 public class Main {
-    private static SimulationInput simulationInput;
-    private static SimulationOutput simulationOutput;
-
-    private static void configure(){
-        simulationInput = SimulationInputConfig.instantiateSimulationInput();
-        simulationOutput = SimulationOutputConfig.instantiateSimulationOutput();
-    }
+    private static final SimulationInput simulationInput = SimulationInputConfig.instantiateSimulationInput();
+    private static final SimulationOutput simulationOutput = SimulationOutputConfig.instantiateSimulationOutput();
 
     public static void main(String[] args){
-        configure();
-
         try {
             List<String> initializationCommands = simulationInput.getInitializationCommands();
             Simulation simulation = SimulationFactory.createSimulationFromCommands(initializationCommands);
