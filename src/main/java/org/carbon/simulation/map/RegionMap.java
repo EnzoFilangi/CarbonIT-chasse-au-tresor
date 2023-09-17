@@ -13,6 +13,14 @@ public class RegionMap {
         this.map = new Tile[sizeX][sizeY];
     }
 
+    public int getSizeX() {
+        return sizeX;
+    }
+
+    public int getSizeY() {
+        return sizeY;
+    }
+
     public Tile getTileAt(Coordinates coordinates){
         return getTileAt(coordinates.getX(), coordinates.getY());
     }
