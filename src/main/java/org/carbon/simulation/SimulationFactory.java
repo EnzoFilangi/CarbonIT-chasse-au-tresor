@@ -13,7 +13,7 @@ public class SimulationFactory {
      * Returns an initialized Simulation from the given list of commands
      * @throws SimulationCreationException If one of the commands is invalid
      */
-    public static Simulation createSimulationFromRawData(List<String> commands) throws SimulationCreationException {
+    public static Simulation createSimulationFromCommands(List<String> commands) throws SimulationCreationException {
         RegionMap regionMap = null;
         List<Adventurer> adventurers = new ArrayList<>();
 

@@ -24,7 +24,7 @@ public class Main {
 
         try {
             List<String> initializationCommands = simulationInput.getInitializationCommands();
-            Simulation simulation = SimulationFactory.createSimulationFromRawData(initializationCommands);
+            Simulation simulation = SimulationFactory.createSimulationFromCommands(initializationCommands);
 
             simulation.runSimulation();
 

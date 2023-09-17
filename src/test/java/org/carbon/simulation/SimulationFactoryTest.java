@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SimulationFactoryTest {
     @Test
     public void should_Throw_If_No_Instructions() {
-        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromRawData(new ArrayList<>()));
+        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(new ArrayList<>()));
         assertEquals("No map initialization instruction found.", exception.getMessage());
     }
 
@@ -24,7 +24,7 @@ public class SimulationFactoryTest {
 
         fileLines.add("# Only a comment in the file so it should throw");
 
-        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromRawData(fileLines));
+        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
         assertEquals("No map initialization instruction found.", exception.getMessage());
     }
 
@@ -33,7 +33,7 @@ public class SimulationFactoryTest {
         ArrayList<String> fileLines = new ArrayList<>();
         fileLines.add("C - 1 - 1");
 
-        Simulation simulation = SimulationFactory.createSimulationFromRawData(fileLines);
+        Simulation simulation = SimulationFactory.createSimulationFromCommands(fileLines);
 
         assertEquals(1, simulation.getMap().getSizeX());
         assertEquals(1, simulation.getMap().getSizeY());
@@ -46,7 +46,7 @@ public class SimulationFactoryTest {
         fileLines.add("C - 1 - 1");
         fileLines.add("");
 
-        Simulation simulation = SimulationFactory.createSimulationFromRawData(fileLines);
+        Simulation simulation = SimulationFactory.createSimulationFromCommands(fileLines);
 
         assertEquals(1, simulation.getMap().getSizeX());
         assertEquals(1, simulation.getMap().getSizeY());
@@ -60,7 +60,7 @@ public class SimulationFactoryTest {
         fileLines.add("M - 0 - 1");
         fileLines.add("T - 1 - 0 - 2");
 
-        Simulation simulation = SimulationFactory.createSimulationFromRawData(fileLines);
+        Simulation simulation = SimulationFactory.createSimulationFromCommands(fileLines);
 
         assertEquals(2, simulation.getMap().getSizeX());
         assertEquals(2, simulation.getMap().getSizeY());
@@ -76,7 +76,7 @@ public class SimulationFactoryTest {
         fileLines.add("C - 1 - 1");
         fileLines.add("A - Alice - 0 - 0 - S - DGA");
 
-        Simulation simulation = SimulationFactory.createSimulationFromRawData(fileLines);
+        Simulation simulation = SimulationFactory.createSimulationFromCommands(fileLines);
 
         assertEquals(1, simulation.getAdventurers().size());
         Adventurer adventurer = simulation.getAdventurers().get(0);
@@ -97,7 +97,7 @@ public class SimulationFactoryTest {
         fileLines.add("C - 1 - 1");
         fileLines.add("C - 2 - 2");
 
-        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromRawData(fileLines));
+        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
         assertEquals("Cannot have two map initialization instructions.", exception.getMessage());
     }
 
@@ -107,7 +107,7 @@ public class SimulationFactoryTest {
 
         fileLines.add("C - 1");
 
-        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromRawData(fileLines));
+        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
         assertEquals("Incomplete map initialization instruction.", exception.getMessage());
     }
 
@@ -117,7 +117,7 @@ public class SimulationFactoryTest {
 
         fileLines.add("C - X - Y");
 
-        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromRawData(fileLines));
+        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
         assertEquals("Invalid map initialization instruction.", exception.getMessage());
     }
 
@@ -128,7 +128,7 @@ public class SimulationFactoryTest {
         fileLines.add("C - 1 - 1");
         fileLines.add("M - 0");
 
-        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromRawData(fileLines));
+        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
         assertEquals("Incomplete mountain initialization instruction.", exception.getMessage());
     }
 
@@ -139,7 +139,7 @@ public class SimulationFactoryTest {
         fileLines.add("C - 1 - 1");
         fileLines.add("M - X - Y");
 
-        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromRawData(fileLines));
+        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
         assertEquals("Invalid mountain initialization instruction.", exception.getMessage());
     }
 
@@ -149,7 +149,7 @@ public class SimulationFactoryTest {
 
         fileLines.add("M - 0 - 0");
 
-        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromRawData(fileLines));
+        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
         assertEquals("A map creation instruction must appear before tile instructions.", exception.getMessage());
     }
 
@@ -160,7 +160,7 @@ public class SimulationFactoryTest {
         fileLines.add("C - 1 - 1");
         fileLines.add("T - 0");
 
-        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromRawData(fileLines));
+        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
         assertEquals("Incomplete treasure initialization instruction.", exception.getMessage());
     }
 
@@ -171,7 +171,7 @@ public class SimulationFactoryTest {
         fileLines.add("C - 1 - 1");
         fileLines.add("T - X - Y - Q");
 
-        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromRawData(fileLines));
+        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
         assertEquals("Invalid treasure initialization instruction.", exception.getMessage());
     }
 
@@ -181,7 +181,7 @@ public class SimulationFactoryTest {
 
         fileLines.add("T - 0 - 0 - 1");
 
-        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromRawData(fileLines));
+        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
         assertEquals("A map creation instruction must appear before tile instructions.", exception.getMessage());
     }
 
@@ -192,7 +192,7 @@ public class SimulationFactoryTest {
         fileLines.add("C - 1 - 1");
         fileLines.add("A - Alice");
 
-        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromRawData(fileLines));
+        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
         assertEquals("Incomplete adventurer initialization instruction.", exception.getMessage());
     }
 
@@ -203,7 +203,7 @@ public class SimulationFactoryTest {
         fileLines.add("C - 1 - 1");
         fileLines.add("A - Alice - X - Y - S - AAA");
 
-        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromRawData(fileLines));
+        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
         assertEquals("Invalid coordinates for adventurer.", exception.getMessage());
     }
 
@@ -214,7 +214,7 @@ public class SimulationFactoryTest {
         fileLines.add("C - 1 - 1");
         fileLines.add("A - Alice - 0 - 0 - K - AAA");
 
-        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromRawData(fileLines));
+        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
         assertEquals("Not a valid orientation character.", exception.getMessage());
     }
 
@@ -225,7 +225,7 @@ public class SimulationFactoryTest {
         fileLines.add("C - 1 - 1");
         fileLines.add("A - Alice - 0 - 0 - S - III");
 
-        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromRawData(fileLines));
+        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
         assertEquals("Unrecognized adventurer action in adventurer creation instruction.", exception.getMessage());
     }
 }
