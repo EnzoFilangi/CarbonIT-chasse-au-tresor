@@ -41,6 +41,19 @@ public class SimulationFactoryTest {
     }
 
     @Test
+    public void should_Ignore_Empty_Trailing_Lines() throws SimulationCreationException {
+        ArrayList<String> fileLines = new ArrayList<>();
+        fileLines.add("C - 1 - 1");
+        fileLines.add("");
+
+        Simulation simulation = SimulationFactory.createSimulationFromRawData(fileLines);
+
+        assertEquals(1, simulation.getMap().getSizeX());
+        assertEquals(1, simulation.getMap().getSizeY());
+        assertEquals(TileFactory.plains().display(), simulation.getMap().getTileAt(0, 0).display());
+    }
+
+    @Test
     public void should_Create_Complex_Map() throws SimulationCreationException {
         ArrayList<String> fileLines = new ArrayList<>();
         fileLines.add("C - 2 - 2");
