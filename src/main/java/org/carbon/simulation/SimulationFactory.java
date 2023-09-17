@@ -2,6 +2,7 @@ package org.carbon.simulation;
 
 import org.carbon.simulation.adventurer.Adventurer;
 import org.carbon.simulation.adventurer.AdventurerFactory;
+import org.carbon.simulation.graphics.SimulationGraphicsConfig;
 import org.carbon.simulation.map.RegionMap;
 import org.carbon.simulation.map.tile.TileFactory;
 
@@ -31,7 +32,7 @@ public class SimulationFactory {
         fillEmptyTilesWithPlains(regionMap);
 
         return new Simulation(
-                SimulationConfig.instantiateSimulationDisplay(),
+                SimulationGraphicsConfig.instantiateSimulationDisplay(),
                 regionMap,
                 adventurers
         );
