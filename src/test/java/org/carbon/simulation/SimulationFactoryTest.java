@@ -122,6 +122,15 @@ public class SimulationFactoryTest {
     }
 
     @Test
+    public void should_Throw_If_Map_Too_Small() {
+        ArrayList<String> fileLines = new ArrayList<>();
+        fileLines.add("C - 0 - 2");
+
+        SimulationCreationException exception = assertThrows(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
+        assertEquals("Invalid map initialization instruction.", exception.getMessage());
+    }
+
+    @Test
     public void should_Throw_If_Incomplete_Mountain_Initialization() {
         ArrayList<String> fileLines = new ArrayList<>();
 
@@ -150,7 +159,7 @@ public class SimulationFactoryTest {
         fileLines.add("M - 0 - 0");
 
         SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
-        assertEquals("A map creation instruction must appear before tile instructions.", exception.getMessage());
+        assertEquals("No map initialization instruction found.", exception.getMessage());
     }
 
     @Test
@@ -182,7 +191,7 @@ public class SimulationFactoryTest {
         fileLines.add("T - 0 - 0 - 1");
 
         SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
-        assertEquals("A map creation instruction must appear before tile instructions.", exception.getMessage());
+        assertEquals("No map initialization instruction found.", exception.getMessage());
     }
 
     @Test
@@ -227,5 +236,28 @@ public class SimulationFactoryTest {
 
         SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
         assertEquals("Unrecognized adventurer action in adventurer creation instruction.", exception.getMessage());
+    }
+
+    @Test
+    public void should_Throw_If_Adventurer_Out_Of_Bounds() {
+        ArrayList<String> fileLines = new ArrayList<>();
+
+        fileLines.add("C - 1 - 1");
+        fileLines.add("A - Alice - 2 - 2 - S - AAA");
+
+        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
+        assertEquals("Adventurer cannot start out of map.", exception.getMessage());
+    }
+
+    @Test
+    public void should_Throw_If_Two_Adventurer_On_Same_Tile() {
+        ArrayList<String> fileLines = new ArrayList<>();
+
+        fileLines.add("C - 1 - 1");
+        fileLines.add("A - Alice - 0 - 0 - S - AAA");
+        fileLines.add("A - Bob - 0 - 0 - S - AAA");
+
+        SimulationCreationException exception = assertThrowsExactly(SimulationCreationException.class, () -> SimulationFactory.createSimulationFromCommands(fileLines));
+        assertEquals("Two adventurers cannot start on the same tile.", exception.getMessage());
     }
 }

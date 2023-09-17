@@ -8,6 +8,10 @@ public class RegionMap {
     private final Tile[][] map;
 
     public RegionMap(int sizeX, int sizeY) {
+        if (sizeX <= 0 || sizeY <= 0){
+            throw new IllegalArgumentException("Map size must be > 0");
+        }
+
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.map = new Tile[sizeX][sizeY];

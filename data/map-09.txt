@@ -1,0 +1,6 @@
+# Check start out of map
+C - 2 - 2
+A - Alice - 3 - 0 - N - A
+
+# Expected result :
+# Program shows error

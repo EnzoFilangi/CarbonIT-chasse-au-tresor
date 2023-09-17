@@ -1,0 +1,7 @@
+# Check two adventurers start on same tile
+C - 2 - 2
+A - Alice - 0 - 0 - S - A
+A - Bob - 0 - 0 - S - A
+
+# Expected result :
+# Program shows error

@@ -3,10 +3,12 @@ package org.carbon.simulation;
 import org.carbon.simulation.adventurer.Adventurer;
 import org.carbon.simulation.adventurer.AdventurerFactory;
 import org.carbon.simulation.graphics.SimulationGraphicsConfig;
+import org.carbon.simulation.map.Coordinates;
 import org.carbon.simulation.map.RegionMap;
 import org.carbon.simulation.map.tile.TileFactory;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class SimulationFactory {
@@ -23,12 +25,14 @@ public class SimulationFactory {
 
             switch (commandComponents[0]) {
                 case "C" -> regionMap = initializeRegionMap(commandComponents, regionMap); // Pass the regionMap to the method so it can check if one already exists
-                case "A" -> adventurers.add(createNewAdventurer(commandComponents));
+                case "A" -> adventurers.add(createAdventurer(commandComponents));
                 case "M" -> addMountainToMap(commandComponents, regionMap);
                 case "T" -> addTreasureToMap(commandComponents, regionMap);
             }
         }
 
+        ensureMapExists(regionMap);
+        validateAdventurers(adventurers, regionMap.getSizeX(), regionMap.getSizeY());
         fillEmptyTilesWithPlains(regionMap);
 
         return new Simulation(
@@ -36,6 +40,22 @@ public class SimulationFactory {
                 regionMap,
                 adventurers
         );
+    }
+
+    private static void validateAdventurers(List<Adventurer> adventurers, int sizeX, int sizeY) throws SimulationCreationException {
+        HashSet<Coordinates> existingCoordinates = new HashSet<>();
+
+        for (Adventurer adventurer: adventurers){
+            if (adventurer.getCoordinates().getX() < 0 || adventurer.getCoordinates().getX() > sizeX || adventurer.getCoordinates().getY() < 0 || adventurer.getCoordinates().getY() > sizeY){
+                throw new SimulationCreationException("Adventurer cannot start out of map.");
+            }
+            existingCoordinates.add(adventurer.getCoordinates());
+        }
+
+        // The size can only be different if two adventurers have the same coordinates since we store the coordinates in a Set
+        if (existingCoordinates.size() != adventurers.size()){
+            throw new SimulationCreationException("Two adventurers cannot start on the same tile.");
+        }
     }
 
     private static String[] splitCommand(String command) {
@@ -64,12 +84,11 @@ public class SimulationFactory {
         }
 
         try {
-            // Create the map if the components have correct values
             int sizeX = Integer.parseInt(commandComponents[1]);
             int sizeY = Integer.parseInt(commandComponents[2]);
 
             return new RegionMap(sizeX, sizeY);
-        } catch (NumberFormatException e) {
+        } catch (IllegalArgumentException e) {
             throw new SimulationCreationException("Invalid map initialization instruction.");
         }
     }
@@ -111,7 +130,7 @@ public class SimulationFactory {
         try {
             int posX = Integer.parseInt(commandComponents[1]);
             int posY = Integer.parseInt(commandComponents[2]);
-            int treasureQuantity = Integer.parseInt(commandComponents[3].trim());
+            int treasureQuantity = Integer.parseInt(commandComponents[3]);
 
             regionMap.setTile(posX, posY, TileFactory.treasure(treasureQuantity));
         } catch (NumberFormatException e) {
@@ -121,7 +140,7 @@ public class SimulationFactory {
 
     private static void ensureMapExists(RegionMap regionMap) throws SimulationCreationException {
         if (regionMap == null) {
-            throw new SimulationCreationException("A map creation instruction must appear before tile instructions.");
+            throw new SimulationCreationException("No map initialization instruction found.");
         }
     }
 
@@ -129,7 +148,7 @@ public class SimulationFactory {
      * Returns an Adventurer from the given command.
      * @param commandComponents See AdventurerFactory.create for the command's format.
      */
-    private static Adventurer createNewAdventurer(String[] commandComponents) throws SimulationCreationException {
+    private static Adventurer createAdventurer(String[] commandComponents) throws SimulationCreationException {
         try {
             return AdventurerFactory.create(commandComponents);
         } catch (IllegalArgumentException e) {
@@ -140,13 +159,8 @@ public class SimulationFactory {
     /**
      * Fills all empty tiles from regionMap with new tiles of type plains.
      * @param regionMap The RegionMap to fill.
-     * @throws SimulationCreationException If the RegionMap is null.
      */
-    private static void fillEmptyTilesWithPlains(RegionMap regionMap) throws SimulationCreationException {
-        if (regionMap == null) {
-            throw new SimulationCreationException("No map initialization instruction found.");
-        }
-
+    private static void fillEmptyTilesWithPlains(RegionMap regionMap) {
         for (int x = 0; x < regionMap.getSizeX(); x++) {
             for (int y = 0; y < regionMap.getSizeY(); y++) {
                 if (regionMap.getTileAt(x, y) == null) {
