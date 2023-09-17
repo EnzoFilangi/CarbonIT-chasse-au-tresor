@@ -62,4 +62,8 @@ public class Adventurer {
     public String serialize() {
         return "A - " + name + " - " + coordinates.getX() + " - " + coordinates.getY() + " - " + orientation.toString() + " - " + treasureQuantity + "\n";
     }
+
+    public String display() {
+        return "A(" + name + ")";
+    }
 }

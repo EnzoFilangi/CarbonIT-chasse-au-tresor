@@ -23,7 +23,7 @@ public class ConsoleSimulationDisplay implements SimulationDisplay {
 
     private void applyAdventurers(String[][] mapWithoutAdventurers, List<Adventurer> adventurers) {
         for (Adventurer adventurer : adventurers) {
-            mapWithoutAdventurers[adventurer.getCoordinates().getX()][adventurer.getCoordinates().getY()] = "A";
+            mapWithoutAdventurers[adventurer.getCoordinates().getX()][adventurer.getCoordinates().getY()] = adventurer.display();
         }
     }
 

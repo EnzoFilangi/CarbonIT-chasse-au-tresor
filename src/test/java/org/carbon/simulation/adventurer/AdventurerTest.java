@@ -71,4 +71,11 @@ public class AdventurerTest {
 
         assertEquals("A - Alice - 0 - 0 - N - 0\n", adventurer.serialize());
     }
+
+    @Test
+    public void should_Display_Properly() {
+        Adventurer adventurer = new Adventurer("Alice", Orientation.NORTH, new Coordinates(0, 0), null);
+
+        assertEquals("A(Alice)", adventurer.display());
+    }
 }

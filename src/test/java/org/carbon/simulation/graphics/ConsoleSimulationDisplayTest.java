@@ -45,8 +45,8 @@ public class ConsoleSimulationDisplayTest {
     @Test
     public void should_Display_A_Map_With_Adventurers(){
         List<Adventurer> adventurers = new ArrayList<>();
-        adventurers.add(new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null));
-        adventurers.add(new Adventurer("", Orientation.NORTH, new Coordinates(0, 1), null));
+        adventurers.add(new Adventurer("1", Orientation.NORTH, new Coordinates(0, 0), null));
+        adventurers.add(new Adventurer("2", Orientation.NORTH, new Coordinates(0, 1), null));
 
         RegionMap regionMap = new RegionMap(2, 3);
         regionMap.setTile(0, 0, TileFactory.plains());
@@ -58,6 +58,6 @@ public class ConsoleSimulationDisplayTest {
 
         consoleSimulationDisplay.display(regionMap, adventurers);
 
-        verify(standardOutputWrapper).print("A . \nA M \n. . \n");
+        verify(standardOutputWrapper).print("A(1) .    \nA(2) M    \n.    .    \n");
     }
 }
