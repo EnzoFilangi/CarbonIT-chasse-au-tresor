@@ -1,0 +1,9 @@
+# Check collision
+C - 2 - 2
+A - Alice - 0 - 0 - S - A
+A - Bob - 1 - 1 - O - A
+
+# Expected result :
+# C - 2 - 2
+# A - Alice - 0 - 1 - S - 0
+# A - Bob - 1 - 1 - O - 0

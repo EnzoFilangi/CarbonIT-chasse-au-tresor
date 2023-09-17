@@ -1,0 +1,9 @@
+# Check treasure is picked up
+C - 3 - 3
+T - 0 - 1 - 2
+A - Alice - 0 - 0 - S - AGA
+
+# Expected result :
+# C - 3 - 3
+# T - 0 - 1 - 1
+# A - Alice - 1 - 1 - E - 1

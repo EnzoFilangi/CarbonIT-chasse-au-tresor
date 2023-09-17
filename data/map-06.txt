@@ -1,0 +1,9 @@
+# Check two adventurers
+C - 2 - 2
+A - Alice - 0 - 0 - S - A
+A - Bob - 1 - 1 - N - A
+
+# Expected result :
+# C - 2 - 2
+# A - Alice - 0 - 1 - S - 0
+# A - Bob - 1 - 0 - N - 0

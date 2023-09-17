@@ -1,0 +1,9 @@
+# Check mountain blocks way
+C - 3 - 3
+M - 0 - 1
+A - Alice - 0 - 0 - S - AGA
+
+# Expected result :
+# C - 3 - 3
+# M - 0 - 1
+# A - Alice - 1 - 0 - E - 0

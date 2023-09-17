@@ -1,0 +1,7 @@
+# Basic map
+C - 2 - 2
+A - Alice - 0 - 0 - S - A
+
+# Expected result :
+# C - 2 - 2
+# A - Alice - 0 - 1 - S - 0

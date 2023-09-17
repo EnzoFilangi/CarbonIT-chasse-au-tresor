@@ -1,0 +1,9 @@
+# Check treasure is not picked up when none left
+C - 3 - 3
+T - 0 - 1 - 0
+A - Alice - 0 - 0 - S - AGA
+
+# Expected result :
+# C - 3 - 3
+# T - 0 - 1 - 0
+# A - Alice - 1 - 1 - E - 0

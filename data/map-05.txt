@@ -1,0 +1,7 @@
+# Check walk out of map
+C - 2 - 2
+A - Alice - 0 - 0 - N - A
+
+# Expected result :
+# C - 2 - 2
+# A - Alice - 0 - 0 - N - 0
