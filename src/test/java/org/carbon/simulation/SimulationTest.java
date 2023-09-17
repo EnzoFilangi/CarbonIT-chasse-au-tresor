@@ -6,7 +6,7 @@ import org.carbon.simulation.adventurer.action.Action;
 import org.carbon.simulation.adventurer.action.TurnLeftAction;
 import org.carbon.simulation.adventurer.action.TurnRightAction;
 import org.carbon.simulation.adventurer.action.WalkAction;
-import org.carbon.simulation.graphics.ConsoleSimulationDisplay;
+import org.carbon.simulation.graphics.console.ConsoleBasedSimulationDisplay;
 import org.carbon.simulation.map.Coordinates;
 import org.carbon.simulation.map.RegionMap;
 import org.carbon.simulation.map.tile.TileFactory;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.*;
 
 public class SimulationTest {
     @Mock
-    ConsoleSimulationDisplay consoleSimulationDisplay;
+    ConsoleBasedSimulationDisplay consoleBasedSimulationDisplay;
 
     @BeforeEach
     public void setUp() {
@@ -49,11 +49,11 @@ public class SimulationTest {
             when(adventurer.getAndRemoveNextAction()).thenReturn(null);
             List<Adventurer> adventurers = new ArrayList<>();
             adventurers.add(adventurer);
-            Simulation simulation = new Simulation(consoleSimulationDisplay, map, adventurers);
+            Simulation simulation = new Simulation(consoleBasedSimulationDisplay, map, adventurers);
 
             simulation.runSimulation();
 
-            verify(consoleSimulationDisplay).display(map, adventurers);
+            verify(consoleBasedSimulationDisplay).display(map, adventurers);
         }
 
         @Test
@@ -61,7 +61,7 @@ public class SimulationTest {
             when(adventurer.getAndRemoveNextAction()).thenReturn(null);
             List<Adventurer> adventurers = new ArrayList<>();
             adventurers.add(adventurer);
-            Simulation simulation = new Simulation(consoleSimulationDisplay, map, adventurers);
+            Simulation simulation = new Simulation(consoleBasedSimulationDisplay, map, adventurers);
 
             simulation.runSimulation();
 
@@ -76,7 +76,7 @@ public class SimulationTest {
                     .thenReturn(null);
             List<Adventurer> adventurers = new ArrayList<>();
             adventurers.add(adventurer);
-            Simulation simulation = new Simulation(consoleSimulationDisplay, map, adventurers);
+            Simulation simulation = new Simulation(consoleBasedSimulationDisplay, map, adventurers);
 
             simulation.runSimulation();
 
@@ -94,7 +94,7 @@ public class SimulationTest {
             List<Adventurer> adventurers = new ArrayList<>();
             adventurers.add(adventurer);
             RegionMap map = new RegionMap(1, 1);
-            Simulation simulation = new Simulation(consoleSimulationDisplay, map, adventurers);
+            Simulation simulation = new Simulation(consoleBasedSimulationDisplay, map, adventurers);
 
             simulation.runSimulation();
 
@@ -109,7 +109,7 @@ public class SimulationTest {
             List<Adventurer> adventurers = new ArrayList<>();
             adventurers.add(adventurer);
             RegionMap map = new RegionMap(1, 1);
-            Simulation simulation = new Simulation(consoleSimulationDisplay, map, adventurers);
+            Simulation simulation = new Simulation(consoleBasedSimulationDisplay, map, adventurers);
 
             simulation.runSimulation();
 
@@ -126,7 +126,7 @@ public class SimulationTest {
             RegionMap map = new RegionMap(1, 2);
             map.setTile(0, 0, TileFactory.plains());
             map.setTile(0, 1, TileFactory.plains());
-            Simulation simulation = new Simulation(consoleSimulationDisplay, map, adventurers);
+            Simulation simulation = new Simulation(consoleBasedSimulationDisplay, map, adventurers);
 
             simulation.runSimulation();
 
@@ -144,7 +144,7 @@ public class SimulationTest {
             RegionMap map = new RegionMap(1, 2);
             map.setTile(0, 0, TileFactory.plains());
             map.setTile(0, 1, TileFactory.mountains());
-            Simulation simulation = new Simulation(consoleSimulationDisplay, map, adventurers);
+            Simulation simulation = new Simulation(consoleBasedSimulationDisplay, map, adventurers);
 
             simulation.runSimulation();
 
@@ -162,7 +162,7 @@ public class SimulationTest {
             RegionMap map = new RegionMap(1, 2);
             map.setTile(0, 0, TileFactory.plains());
             map.setTile(0, 1, TileFactory.treasure(1));
-            Simulation simulation = new Simulation(consoleSimulationDisplay, map, adventurers);
+            Simulation simulation = new Simulation(consoleBasedSimulationDisplay, map, adventurers);
 
             simulation.runSimulation();
 
@@ -181,7 +181,7 @@ public class SimulationTest {
             RegionMap map = new RegionMap(1, 2);
             map.setTile(0, 0, TileFactory.plains());
             map.setTile(0, 1, TileFactory.treasure(0));
-            Simulation simulation = new Simulation(consoleSimulationDisplay, map, adventurers);
+            Simulation simulation = new Simulation(consoleBasedSimulationDisplay, map, adventurers);
 
             simulation.runSimulation();
 
@@ -202,7 +202,7 @@ public class SimulationTest {
             map.setTile(0, 0, TileFactory.plains());
             map.setTile(0, 1, TileFactory.plains());
             map.setTile(0, 2, TileFactory.plains());
-            Simulation simulation = new Simulation(consoleSimulationDisplay, map, adventurers);
+            Simulation simulation = new Simulation(consoleBasedSimulationDisplay, map, adventurers);
 
             simulation.runSimulation();
 
@@ -223,7 +223,7 @@ public class SimulationTest {
             map.setTile(0, 0, TileFactory.plains());
             map.setTile(1, 0, TileFactory.plains());
             map.setTile(0, 1, TileFactory.mountains());
-            Simulation simulation = new Simulation(consoleSimulationDisplay, map, adventurers);
+            Simulation simulation = new Simulation(consoleBasedSimulationDisplay, map, adventurers);
 
             simulation.runSimulation();
 
@@ -247,7 +247,7 @@ public class SimulationTest {
             map.setTile(1, 0, TileFactory.plains());
             map.setTile(0, 1, TileFactory.plains());
             map.setTile(1, 1, TileFactory.plains());
-            Simulation simulation = new Simulation(consoleSimulationDisplay, map, adventurers);
+            Simulation simulation = new Simulation(consoleBasedSimulationDisplay, map, adventurers);
 
             simulation.runSimulation();
 
@@ -273,7 +273,7 @@ public class SimulationTest {
             map.setTile(1, 0, TileFactory.plains());
             map.setTile(0, 1, TileFactory.plains());
             map.setTile(1, 1, TileFactory.plains());
-            Simulation simulation = new Simulation(consoleSimulationDisplay, map, adventurers);
+            Simulation simulation = new Simulation(consoleBasedSimulationDisplay, map, adventurers);
 
             simulation.runSimulation();
 

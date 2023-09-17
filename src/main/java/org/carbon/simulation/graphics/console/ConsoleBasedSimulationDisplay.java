@@ -1,15 +1,16 @@
-package org.carbon.simulation.graphics;
+package org.carbon.simulation.graphics.console;
 
 import org.carbon.simulation.adventurer.Adventurer;
+import org.carbon.simulation.graphics.SimulationDisplay;
 import org.carbon.simulation.map.RegionMap;
 
 import java.util.List;
 
-public class ConsoleSimulationDisplay implements SimulationDisplay {
+public class ConsoleBasedSimulationDisplay implements SimulationDisplay {
 
     private final StandardOutputWrapper standardOutputWrapper;
 
-    public ConsoleSimulationDisplay(StandardOutputWrapper standardOutputWrapper) {
+    public ConsoleBasedSimulationDisplay(StandardOutputWrapper standardOutputWrapper) {
         this.standardOutputWrapper = standardOutputWrapper;
     }
 

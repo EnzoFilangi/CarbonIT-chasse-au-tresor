@@ -1,4 +1,4 @@
-package org.carbon.simulation.graphics;
+package org.carbon.simulation.graphics.console;
 
 public class StandardOutputWrapper {
     public void print(String s){

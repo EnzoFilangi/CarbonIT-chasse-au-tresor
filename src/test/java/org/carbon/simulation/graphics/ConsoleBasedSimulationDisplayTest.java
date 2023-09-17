@@ -2,6 +2,8 @@ package org.carbon.simulation.graphics;
 
 import org.carbon.simulation.adventurer.Adventurer;
 import org.carbon.simulation.adventurer.Orientation;
+import org.carbon.simulation.graphics.console.ConsoleBasedSimulationDisplay;
+import org.carbon.simulation.graphics.console.StandardOutputWrapper;
 import org.carbon.simulation.map.Coordinates;
 import org.carbon.simulation.map.RegionMap;
 import org.carbon.simulation.map.tile.TileFactory;
@@ -15,8 +17,8 @@ import java.util.List;
 
 import static org.mockito.Mockito.verify;
 
-public class ConsoleSimulationDisplayTest {
-    private ConsoleSimulationDisplay consoleSimulationDisplay;
+public class ConsoleBasedSimulationDisplayTest {
+    private ConsoleBasedSimulationDisplay consoleBasedSimulationDisplay;
 
     @Mock
     private StandardOutputWrapper standardOutputWrapper;
@@ -24,7 +26,7 @@ public class ConsoleSimulationDisplayTest {
     @BeforeEach
     public void setUp(){
         MockitoAnnotations.openMocks(this);
-        consoleSimulationDisplay = new ConsoleSimulationDisplay(standardOutputWrapper);
+        consoleBasedSimulationDisplay = new ConsoleBasedSimulationDisplay(standardOutputWrapper);
     }
 
     @Test
@@ -37,7 +39,7 @@ public class ConsoleSimulationDisplayTest {
         regionMap.setTile(0, 2, TileFactory.plains());
         regionMap.setTile(1, 2, TileFactory.plains());
 
-        consoleSimulationDisplay.display(regionMap, new ArrayList<>());
+        consoleBasedSimulationDisplay.display(regionMap, new ArrayList<>());
 
         verify(standardOutputWrapper).print(".    .    \nT(1) M    \n.    .    \n");
     }
@@ -56,7 +58,7 @@ public class ConsoleSimulationDisplayTest {
         regionMap.setTile(0, 2, TileFactory.plains());
         regionMap.setTile(1, 2, TileFactory.plains());
 
-        consoleSimulationDisplay.display(regionMap, adventurers);
+        consoleBasedSimulationDisplay.display(regionMap, adventurers);
 
         verify(standardOutputWrapper).print("A(1) .    \nA(2) M    \n.    .    \n");
     }
