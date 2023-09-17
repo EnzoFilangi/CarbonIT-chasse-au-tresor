@@ -2,6 +2,7 @@ package org.carbon.simulation;
 
 import org.carbon.simulation.adventurer.Adventurer;
 import org.carbon.simulation.adventurer.AdventurerFactory;
+import org.carbon.simulation.exceptions.SimulationCreationException;
 import org.carbon.simulation.graphics.SimulationGraphicsConfig;
 import org.carbon.simulation.map.Coordinates;
 import org.carbon.simulation.map.RegionMap;

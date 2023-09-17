@@ -5,7 +5,7 @@ import org.carbon.io.input.SimulationInputConfig;
 import org.carbon.io.output.SimulationOutput;
 import org.carbon.io.output.SimulationOutputConfig;
 import org.carbon.simulation.Simulation;
-import org.carbon.simulation.SimulationCreationException;
+import org.carbon.simulation.exceptions.SimulationCreationException;
 import org.carbon.simulation.SimulationFactory;
 
 import java.util.List;

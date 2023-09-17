@@ -4,6 +4,7 @@ import org.carbon.simulation.adventurer.Adventurer;
 import org.carbon.simulation.adventurer.action.TurnLeftAction;
 import org.carbon.simulation.adventurer.action.TurnRightAction;
 import org.carbon.simulation.adventurer.action.WalkAction;
+import org.carbon.simulation.exceptions.SimulationCreationException;
 import org.carbon.simulation.map.tile.TileFactory;
 import org.junit.jupiter.api.Test;
 

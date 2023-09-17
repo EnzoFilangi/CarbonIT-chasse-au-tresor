@@ -1,4 +1,4 @@
-package org.carbon.simulation;
+package org.carbon.simulation.exceptions;
 
 public class SimulationCreationException extends Exception {
     public SimulationCreationException(String errorMessage){
