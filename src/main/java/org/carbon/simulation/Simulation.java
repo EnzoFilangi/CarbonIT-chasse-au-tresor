@@ -70,4 +70,15 @@ public class Simulation {
     public List<Adventurer> getAdventurers() {
         return adventurers;
     }
+
+    public String serialize() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(map.serialize());
+        for (Adventurer adventurer: adventurers){
+            stringBuilder.append(adventurer.serialize());
+        }
+
+        return stringBuilder.toString();
+    }
 }

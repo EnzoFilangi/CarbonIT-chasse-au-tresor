@@ -94,4 +94,30 @@ public class RegionMapTest {
             assertDoesNotThrow(() -> regionMap.setTile(0, 10, tile));
         }
     }
+
+    @Nested
+    class SerializeTest {
+        @Test
+        public void should_Serialize_Simple_Map() {
+            RegionMap map = new RegionMap(1, 1);
+            map.setTile(0, 0, TileFactory.plains());
+
+            String serializationResult = map.serialize();
+
+            assertEquals("C - 1 - 1\n", serializationResult);
+        }
+
+        @Test
+        public void should_Serialize_Complex_Map() {
+            RegionMap map = new RegionMap(2, 2);
+            map.setTile(0, 0, TileFactory.plains());
+            map.setTile(1, 1, TileFactory.plains());
+            map.setTile(0, 1, TileFactory.mountains());
+            map.setTile(1, 0, TileFactory.treasure(2));
+
+            String serializationResult = map.serialize();
+
+            assertEquals("C - 2 - 2\nM - 0 - 1\nT - 1 - 0 - 2\n", serializationResult);
+        }
+    }
 }

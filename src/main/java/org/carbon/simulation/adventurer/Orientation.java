@@ -24,4 +24,14 @@ public enum Orientation {
             default -> throw new IllegalArgumentException("Not a valid orientation character.");
         };
     }
+
+    @Override
+    public String toString() {
+        return switch (this){
+            case NORTH -> "N";
+            case EAST -> "E";
+            case SOUTH -> "S";
+            case WEST -> "O";
+        };
+    }
 }

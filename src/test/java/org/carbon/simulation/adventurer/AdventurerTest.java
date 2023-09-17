@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class AdventurerTest {
     @Test
-    public void should_Turn_Correct_Left(){
+    public void should_Turn_Correct_Left() {
         Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
         adventurer.turnLeft();
 
@@ -22,7 +22,7 @@ public class AdventurerTest {
     }
 
     @Test
-    public void should_Turn_Correct_Right(){
+    public void should_Turn_Correct_Right() {
         Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), null);
         adventurer.turnRight();
 
@@ -30,7 +30,7 @@ public class AdventurerTest {
     }
 
     @Test
-    public void should_Return_Correct_Action(){
+    public void should_Return_Correct_Action() {
         Action expectedAction = new TurnRightAction();
         List<Action> actions = new ArrayList<>();
         actions.add(expectedAction);
@@ -42,7 +42,7 @@ public class AdventurerTest {
     }
 
     @Test
-    public void should_Use_Up_All_Actions(){
+    public void should_Use_Up_All_Actions() {
         Action expectedAction1 = new TurnRightAction();
         Action expectedAction2 = new TurnRightAction();
         List<Action> actions = new ArrayList<>();
@@ -57,11 +57,18 @@ public class AdventurerTest {
     }
 
     @Test
-    public void should_Return_Null_When_No_Actions(){
+    public void should_Return_Null_When_No_Actions() {
         List<Action> actions = new ArrayList<>();
 
         Adventurer adventurer = new Adventurer("", Orientation.NORTH, new Coordinates(0, 0), actions);
 
         assertNull(adventurer.getAndRemoveNextAction());
+    }
+
+    @Test
+    public void should_Serialize_Properties() {
+        Adventurer adventurer = new Adventurer("Alice", Orientation.NORTH, new Coordinates(0, 0), null);
+
+        assertEquals("A - Alice - 0 - 0 - N - 0\n", adventurer.serialize());
     }
 }

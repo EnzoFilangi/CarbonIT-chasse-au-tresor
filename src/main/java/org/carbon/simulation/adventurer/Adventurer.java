@@ -58,4 +58,8 @@ public class Adventurer {
 
         return actionBacklog.remove(0);
     }
+
+    public String serialize() {
+        return "A - " + name + " - " + coordinates.getX() + " - " + coordinates.getY() + " - " + orientation.toString() + " - " + treasureQuantity + "\n";
+    }
 }

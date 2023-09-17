@@ -53,4 +53,23 @@ public class RegionMap {
 
         return tileStrings;
     }
+
+    public String serialize() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder
+                .append("C - ")
+                .append(sizeX)
+                .append(" - ")
+                .append(sizeY)
+                .append("\n");
+
+        for (int x = 0; x < sizeX; x++) {
+            for (int y = 0; y < sizeY; y++) {
+                stringBuilder.append(map[x][y].serialize(new Coordinates(x, y)));
+            }
+        }
+
+        return stringBuilder.toString();
+    }
 }

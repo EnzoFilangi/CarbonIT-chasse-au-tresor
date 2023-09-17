@@ -1,7 +1,9 @@
 package org.carbon.simulation.map.tile;
 
 import org.carbon.simulation.adventurer.Adventurer;
+import org.carbon.simulation.map.Coordinates;
 import org.carbon.simulation.map.tile.behavior.graphical.GraphicalBehavior;
+import org.carbon.simulation.map.tile.behavior.serialization.SerializationBehavior;
 import org.carbon.simulation.map.tile.behavior.walking.WalkingBehavior;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -21,12 +24,15 @@ public class TileTest {
     private WalkingBehavior walkingBehavior;
 
     @Mock
+    private SerializationBehavior serializationBehavior;
+
+    @Mock
     private Adventurer adventurer;
 
     @BeforeEach
     public void setUp(){
         MockitoAnnotations.openMocks(this);
-        tile = new Tile(graphicalBehavior, walkingBehavior);
+        tile = new Tile(graphicalBehavior, walkingBehavior, serializationBehavior);
     }
 
     @Test
@@ -87,6 +93,23 @@ public class TileTest {
 
         String displayedValue = tile.display();
 
-        assertEquals(displayedValue, expectedResult);
+        assertEquals(expectedResult, displayedValue);
+    }
+
+    @Test
+    public void should_Delegate_Serialization_To_SerializationBehavior(){
+        Coordinates coordinates = new Coordinates(0, 0);
+        tile.serialize(coordinates);
+        verify(serializationBehavior).serialize(coordinates);
+    }
+
+    @Test
+    public void should_Return_Result_Of_SerializationBehavior_Serialize(){
+        String expectedResult = "Lorem ipsum";
+        when(serializationBehavior.serialize(any())).thenReturn(expectedResult);
+
+        String serializedValue = tile.serialize(new Coordinates(0, 0));
+
+        assertEquals(expectedResult, serializedValue);
     }
 }
