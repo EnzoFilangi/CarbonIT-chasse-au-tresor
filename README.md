@@ -1,7 +1,5 @@
 # Exercice pratique - La carte aux trésors - Carbon IT
 
----
-
 ## Objectif du projet
 
 L'objectif du projet est de parvenir à simuler l'évolution d'aventuriers à la recherche de trésors.
